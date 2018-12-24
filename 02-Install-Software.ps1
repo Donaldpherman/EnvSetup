@@ -13,6 +13,12 @@ Write-Host "[WARNING] Ma de in China: some software like Google Chrome require t
 
 # todo: add other apps
 
+# dotnet, idea, scala, python
+
+# winscp filezilla sumatrapdf cmder docker rufus driverboost
+
+# tim 
+
 $apps = @(
     @("7-Zip", "7zip.install"),
     @("Google Chrome", "googlechrome"),
