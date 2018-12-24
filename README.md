@@ -1,6 +1,8 @@
 # Windows 10 Developer Machine Setup
 
-This is the script for Edi Wang to setup a new dev box. You can modify the scripts to fit your own requirements.
+This is the script for mxtao to setup a new dev box. You can modify the scripts to fit your own requirements.
+
+The project is forked from Edi Wang's. The original address is [here](https://github.com/EdiWang/EnvSetup)
 
 ## Prerequisites
 
@@ -23,45 +25,27 @@ Import "Add_PS1_Run_as_administrator.reg" to your registry to enable context men
 - Disable Sleep on AC Power
 - Add 'This PC' Desktop Icon (need refresh desktop)
 - Remove "Microsoft Edge" desktop shortcut icon
+- Install Windows Optional Feature
+  - Hyper-V
+  - Windows Defender Application Guard
+  - Windows Subsystem Linux
 - Enable Developer Mode (for UWP Development)
-- Enable Remote Desktop
-- Install IIS
-  - ASP.NET 4.7
-  - Dynamic and Static Compression
-  - Basic Authentication
-  - Windows Authentication
-  - Server Side Includes
-  - WebSockets
 - Install Chocolate for Windows
 - Restart Windows
 
-### 02-Install-Software.cmd
+### 02-Install-Software.ps1
 
 Use choco to install development tools.
 
 - 7-Zip
 - Google Chrome
 - Pot Player
-- Microsoft Teams
-- SysInternals
-- Lightshot
-- FileZilla
-- TeamViewer
 - Notepad++
 - Visual Studio Code
   - C-Sharp
   - Icons
   - MSSQL
-- DotPeek
-- LINQPad
-- Fiddler
 - Git
-- GitHub for Windows
-- FFMpeg
-- CURL
-- WGet
-- OpenSSL
-- Beyond Compare
 
 *To find more software, like Node.js, Firefox, etc. Go to https://chocolatey.org/packages*
 
