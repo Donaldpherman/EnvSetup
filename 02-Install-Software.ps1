@@ -11,26 +11,45 @@ Write-Host @"
 
 Write-Host "[WARNING] Ma de in China: some software like Google Chrome require the true Internet first" -ForegroundColor Yellow
 
-# todo: add other apps
-
-# dotnet, idea, scala, python
-
-# winscp filezilla sumatrapdf cmder docker rufus driverboost
-
-# tim 
-
 $apps = @(
+    # ---------- language and sdks ----------
+    @(".Net Core SDK", "dotnetcore-sdk"),
+    @("Python", "python"),
+    @("Java SE 8.0.191 SDK", "jdk8"),
+    @("Java SE 11.0.1 SDK", "jdk11"),
+    @("Scala", "scala"),
+
+    # ---------- normal softwares ----------
     @("7-Zip", "7zip.install"),
     @("Google Chrome", "googlechrome"),
     @("PotPlayer", "potplayer"),
+    @("SumatraPDF", "sumatrapdf"),
+    @("Tim", "tim"),
+    #@("Driver Booster"),
+
+    # ---------- tools for dev ----------
+    @("WinSCP", "winscp"),
+    @("FileZilla", "filezilla"),
+    @("Cmder Mini", "cmdermini"),
+    @("Rufus", "rufus"),
+    @("Git", "git"),
+    @("Docker Desktop", "docker-desktop"),
+
+    # ---------- editor or ide ----------
     @("NotePad++", "notepadplusplus.install"),
     @("Visual Studio Code", @(
         "vscode",
         "vscode-csharp",
         "vscode-icons",
-        "vscode-mssql"
+        "vscode-mssql",
+        "vscode-powershell",
+        "vscode-docker",
+        "vscode-gitlens"
     )),
-    @("Git", "git")
+    @("Visual Studio 2017 Enterprise", "visualstudio2017enterprise"),
+    @("JetBrains ReSharper", "resharper"),
+    @("JetBrains IntelliJ IDEA (Ultimate Edition)", "intellijidea-ultimate")
+
 )
 
 function ChocoInstall($appName, $packageName) {

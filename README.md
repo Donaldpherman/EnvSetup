@@ -35,17 +35,39 @@ Import "Add_PS1_Run_as_administrator.reg" to your registry to enable context men
 
 ### 02-Install-Software.ps1
 
-Use choco to install development tools.
+Use choco to install softwares.
 
-- 7-Zip
-- Google Chrome
-- Pot Player
-- Notepad++
-- Visual Studio Code
-  - C-Sharp
-  - Icons
-  - MSSQL
-- Git
+- language and sdks
+  - .Net Core SDK
+  - Python
+  - Java SE 8
+  - Java SE 11
+  - Scala
+- normal softwares
+  - 7-Zip
+  - Google Chrome
+  - PotPlayer
+  - Tim
+  - SumatraPDF
+- tools for dev
+  - WinSCP
+  - FileZilla
+  - Cmder Mini
+  - Rufus
+  - Git
+  - Docker Desktop
+- editor or ide
+  - NotPad++
+  - Visual Studio Code
+    - C#
+    - vscode-icons
+    - mssq
+    - PowerShell
+    - Docker
+    - GitLens
+  - Visual Studio 2017 Enterprise
+    - JetBrains ReSharper
+  - JetBrains IntelliJ IDEA (Ultimate Edition)
 
 *To find more software, like Node.js, Firefox, etc. Go to https://chocolatey.org/packages*
 
