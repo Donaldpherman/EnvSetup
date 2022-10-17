@@ -170,29 +170,6 @@ Write-Host "------------------------------------" -ForegroundColor Green
 git config --global user.email "dherman@brandesassociates.com"
 git config --global user.name "Donald Paul Herman"
 
-# FFmpeg
-if ($true) {
-    Write-Host "Downloading FFmpeg..." -ForegroundColor Green
-    Write-Host "------------------------------------" -ForegroundColor Green
-    $ffmpegPath = "${env:ProgramFiles}\FFMPEG"
-    $downloadUri = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z"
-    
-    $downloadedFfmpeg = $env:USERPROFILE + "\ffmpeg-git-full.7z"
-    Remove-Item $downloadedFfmpeg -ErrorAction SilentlyContinue
-    aria2c.exe $downloadUri -d $HOME -o "ffmpeg-git-full.7z"
-
-    & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedFfmpeg "-o$($ffmpegPath)" -y
-    $subPath = $(Get-ChildItem -Path $ffmpegPath | Where-Object { $_.Name -like "ffmpeg*" } | Sort-Object Name -Descending | Select-Object -First 1).Name
-    $subPath = Join-Path -Path $ffmpegPath -ChildPath $subPath
-    $binPath = Join-Path -Path $subPath -ChildPath "bin"
-    Remove-Item $ffmpegPath\*.exe
-    Move-Item $binPath\*.exe $ffmpegPath
-
-    Write-Host "Adding FFmpeg to PATH..." -ForegroundColor Green
-    AddToPath -folder $ffmpegPath
-    Remove-Item -Path $downloadedFfmpeg -Force
-}
-
 Write-Host "Applying file explorer settings..." -ForegroundColor Green
 cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 0 /f"
 cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v AutoCheckSelect /t REG_DWORD /d 0 /f"
