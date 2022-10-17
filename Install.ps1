@@ -210,12 +210,13 @@ Write-Host "------------------------------------" -ForegroundColor Green
 cmd.exe /c "reg add `"HKCU\Control Panel\Bluetooth`" /v `"Notification Area Icon`" /t REG_DWORD /d 0 /f"
 
 # -----------------------------------------------------------------------------
-Write-Host ""
-Write-Host "Checking Windows updates..." -ForegroundColor Green
-Write-Host "------------------------------------" -ForegroundColor Green
-Install-Module -Name PSWindowsUpdate -Force
-Write-Host "Installing updates... (Computer will reboot in minutes...)" -ForegroundColor Green
-Get-WindowsUpdate -AcceptAll -Install -ForceInstall -AutoReboot
+# Remove windows updates since we don't have enough room.
+#Write-Host ""
+#Write-Host "Checking Windows updates..." -ForegroundColor Green
+#Write-Host "------------------------------------" -ForegroundColor Green
+#Install-Module -Name PSWindowsUpdate -Force
+#Write-Host "Installing updates... (Computer will reboot in minutes...)" -ForegroundColor Green
+#Get-WindowsUpdate -AcceptAll -Install -ForceInstall -AutoReboot
 
 # -----------------------------------------------------------------------------
 Write-Host "------------------------------------" -ForegroundColor Green
