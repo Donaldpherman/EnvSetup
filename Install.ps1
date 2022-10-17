@@ -156,7 +156,7 @@ $Apps = @(
     "azure-cli",
     "powershell-core",
     "chocolateygui",
-    "choco install tortoisegit")
+    "tortoisegit")
 
 foreach ($app in $Apps) {
     choco install $app -y
