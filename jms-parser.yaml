@@ -9,21 +9,22 @@ parsers:
             // shadowsocks server config pattern: {cipher}:{password}@{server ip/domain}:${port} ,
             // but password section maybe contains any character
             const SS_URI_PATTERN = /^ss:\/\/(\w+)(#(.+))?$/;
+            const SS_SERVER_PATTERN = /([\w-]+):(.+)@([\w\.]+):(\d+)/;
             let matched = uri.match(SS_URI_PATTERN);
             if (matched == null) {
                 return null;
             }
-
             // ciper:password@server:port
-            let config = atob(matched[1]);
-            let ciper = config.substring(0, config.indexOf(':'));
-            let password = config.substring(config.indexOf(':') + 1, config.lastIndexOf('@'));
-            let server = config.substring(config.lastIndexOf('@') + 1, config.lastIndexOf(':'));
-            let port = config.substring(config.lastIndexOf(':') + 1);
-
+            let config = atob(matched[1]).match(SS_SERVER_PATTERN);
+            if (config == null) {
+                return null;
+            }
+            let ciper = config[1];
+            let password = config[2];
+            let server = config[3];
+            let port = config[4];
             // get or create config name
             let name =  matched.length == 4 ? matched[3] : (server + ':' + port);
-
             return {
                 name: name,
                 type: "ss",
@@ -90,11 +91,11 @@ parsers:
         let result = {
             proxies: servers,
             "proxy-groups": [{
-                name: "proxy",
+                name: "jms-proxy",
                 type: "select",
                 proxies: servers.map(server => server.name)
             }],
-            rules: ["MATCH,proxy"]
+            rules: ["MATCH,jms-proxy"]
         }
 
         return yaml.stringify(result)
