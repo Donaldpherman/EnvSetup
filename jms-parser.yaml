@@ -29,7 +29,7 @@ parsers:
                 name: name,
                 type: "ss",
                 server: server,
-                port: port,
+                port: parseInt(port),
                 cipher: ciper,
                 password: password
                 // udp: true
@@ -63,7 +63,7 @@ parsers:
                 name: obj.ps,
                 type: "vmess",
                 server: obj.add,
-                port: obj.port,
+                port: parseInt(obj.port),
                 uuid: obj.id,
                 alterId: obj.aid,
                 cipher: "auto",
