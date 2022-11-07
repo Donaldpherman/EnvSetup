@@ -153,8 +153,8 @@ $Apps = @(
     "notepadplusplus.install",
     "linqpad",
     "beyondcompare",
-    "nodejs-lts",
-    "azure-cli",
+    #"nodejs-lts",
+    #"azure-cli",
     "powershell-core",
     "chocolateygui",
     "tortoisegit")
