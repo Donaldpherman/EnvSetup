@@ -155,7 +155,7 @@ $Apps = @(
     "beyondcompare",
     #"nodejs-lts",
     #"azure-cli",
-    "powershell-core",
+    #"powershell-core",
     "chocolateygui",
     "tortoisegit")
 
