@@ -297,6 +297,26 @@ Write-Host "------------------------------------" -ForegroundColor Green
 dotnet tool install --global dotnet-ef
 dotnet tool update --global dotnet-ef
 
+Write-Host "Set home path hidden folders and files..." -ForegroundColor Green
+Write-Host "------------------------------------" -ForegroundColor Green
+Get-ChildItem -Path $HOME -Filter .* -Recurse -Force -ErrorAction SilentlyContinue | ForEach-Object { $_.Attributes = $_.Attributes -bor [System.IO.FileAttributes]::Hidden }
+
+Write-Host "Avoid Edge showing sidebar..." -ForegroundColor Green
+Write-Host "------------------------------------" -ForegroundColor Green
+New-Item         -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -ErrorAction SilentlyContinue
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name HubsSidebarEnabled -Type DWORD -Value 0 -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name HubsSidebarEnabled -Type DWORD -Value 0
+
+Write-Host "Disabling Alt+Tab swiching Edge tabs..." -ForegroundColor Green
+Write-Host "------------------------------------" -ForegroundColor Green
+New-Item         -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -ErrorAction SilentlyContinue
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name MultiTaskingAltTabFilter -Type DWORD -Value 3 -ErrorAction SilentlyContinue
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name MultiTaskingAltTabFilter -Type DWORD -Value 3
+
+Write-Host "Avoid rubbish folder grouping..." -ForegroundColor Green
+Write-Host "------------------------------------" -ForegroundColor Green
+(gci 'HKCU:\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags' -s | ? PSChildName -eq '{885a186e-a440-4ada-812b-db871b942259}' ) | ri -Recurse
+
 Write-Host "Enabling Chinese input method..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
 $LanguageList = Get-WinUserLanguageList
@@ -307,6 +327,30 @@ Write-Host "Applying file explorer settings..." -ForegroundColor Green
 cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v HideFileExt /t REG_DWORD /d 0 /f"
 cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v AutoCheckSelect /t REG_DWORD /d 0 /f"
 cmd.exe /c "reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v LaunchTo /t REG_DWORD /d 1 /f"
+
+Write-Host "Disabling the Windows Ink Workspace..." -ForegroundColor Green
+REG ADD "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\PenWorkspace" /V PenWorkspaceButtonDesiredVisibility /T REG_DWORD /D 0 /F
+
+Write-Host "Exclude repos from Windows Defender..." -ForegroundColor Green
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\source\repos"
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\.nuget"
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\.vscode"
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\.dotnet"
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\.ssh"
+Add-MpPreference -ExclusionPath "$env:USERPROFILE\.azuredatastudio"
+Add-MpPreference -ExclusionPath "$env:APPDATA\npm"
+Add-MpPreference -ExclusionPath "$NextcloudPath"
+
+Write-Host "Enabling dark theme..." -ForegroundColor Green
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name AppsUseLightTheme -Value 0
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name SystemUsesLightTheme -Value 0
+Write-Host "Dark theme enabled."
+
+Write-Host "Syncing time..." -ForegroundColor Green
+net stop w32time
+net start w32time
+w32tm /resync /force
+w32tm /query /status
 
 Write-Host "Setting Time zone..." -ForegroundColor Green
 Set-TimeZone -Name "China Standard Time"
