@@ -52,14 +52,14 @@ Write-Host ""
 Write-Host "Add 'This PC' Desktop Icon..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
 $thisPCIconRegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel"
-$thisPCRegValname = "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" 
-$item = Get-ItemProperty -Path $thisPCIconRegPath -Name $thisPCRegValname -ErrorAction SilentlyContinue 
-if ($item) { 
-    Set-ItemProperty  -Path $thisPCIconRegPath -name $thisPCRegValname -Value 0  
-} 
-else { 
-    New-ItemProperty -Path $thisPCIconRegPath -Name $thisPCRegValname -Value 0 -PropertyType DWORD | Out-Null  
-} 
+$thisPCRegValname = "{20D04FE0-3AEA-1069-A2D8-08002B30309D}"
+$item = Get-ItemProperty -Path $thisPCIconRegPath -Name $thisPCRegValname -ErrorAction SilentlyContinue
+if ($item) {
+    Set-ItemProperty  -Path $thisPCIconRegPath -name $thisPCRegValname -Value 0
+}
+else {
+    New-ItemProperty -Path $thisPCIconRegPath -Name $thisPCRegValname -Value 0 -PropertyType DWORD | Out-Null
+}
 
 # To list all appx packages:
 # Get-AppxPackage | Format-Table -Property Name,Version,PackageFullName
@@ -168,6 +168,13 @@ foreach ($app in $Apps) {
     choco install $app -y
 }
 
+choco install -y visualstudio2022professional --package-parameters "--quiet --nocache --wait --norestart --includeRecommended `
+    --add Microsoft.VisualStudio.Workload.NetWeb `
+    --add Microsoft.VisualStudio.Workload.ManagedDesktop `
+    --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools `
+    --add Microsoft.VisualStudio.Workload.NativeDesktop"
+
+
 # gsudo
 PowerShell -Command "Set-ExecutionPolicy RemoteSigned -scope Process; [Net.ServicePointManager]::SecurityProtocol = 'Tls12'; iwr -useb https://raw.githubusercontent.com/gerardog/gsudo/master/installgsudo.ps1 | iex"
 
@@ -196,18 +203,18 @@ if ($true)
 }
 
 # Chromium
-if ($true) { 
+if ($true) {
     Write-Host "Installing Chromium as backup browser (For second Teams\AAD usage)..." -ForegroundColor Green
     Write-Host "------------------------------------" -ForegroundColor Green
     $chromiumUrl = "https://download-chromium.appspot.com/dl/Win_x64?type=snapshots"
     $chromiumPath = "${env:ProgramFiles}\Chromium"
-    
+
     $downloadedChromium = $env:USERPROFILE + "\chrome-win.zip"
     Remove-Item $downloadedChromium -ErrorAction SilentlyContinue
     aria2c.exe $chromiumUrl -d $HOME -o "chrome-win.zip"
-    
+
     & "${env:ProgramFiles}\7-Zip\7z.exe" x $downloadedChromium "-o$($chromiumPath)" -y
-    
+
     $shortCutPath = $env:USERPROFILE + "\Start Menu\Programs" + "\Chromium.lnk"
     Remove-Item -Path $shortCutPath -Force -ErrorAction SilentlyContinue
     $objShell = New-Object -ComObject ("WScript.Shell")
@@ -224,11 +231,11 @@ if ($true) {
     Write-Host "------------------------------------" -ForegroundColor Green
     $toolsPath = "${env:ProgramFiles}\Android-Platform-Tools"
     $downloadUri = "https://dl.google.com/android/repository/platform-tools-latest-windows.zip"
-    
+
     $downloadedTool = $env:USERPROFILE + "\platform-tools-latest-windows.zip"
     Remove-Item $downloadedTool -ErrorAction SilentlyContinue
     aria2c.exe $downloadUri -d $HOME -o "platform-tools-latest-windows.zip"
-    
+
     & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedTool "-o$($toolsPath)" -y
     AddToPath -folder "$toolsPath\platform-tools"
     Remove-Item -Path $downloadedTool -Force
@@ -240,7 +247,7 @@ if ($true) {
     Write-Host "------------------------------------" -ForegroundColor Green
     $ffmpegPath = "${env:ProgramFiles}\FFMPEG"
     $downloadUri = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-git-full.7z"
-    
+
     $downloadedFfmpeg = $env:USERPROFILE + "\ffmpeg-git-full.7z"
     Remove-Item $downloadedFfmpeg -ErrorAction SilentlyContinue
     aria2c.exe $downloadUri -d $HOME -o "ffmpeg-git-full.7z"
@@ -263,11 +270,11 @@ if ($true) {
     Write-Host "------------------------------------" -ForegroundColor Green
     $toolsPath = "${env:ProgramFiles}\Kubernetes"
     $downloadUri = "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
-    
+
     $downloadedTool = $env:USERPROFILE + "\kubectl.exe"
     Remove-Item $downloadedTool -ErrorAction SilentlyContinue
     aria2c.exe $downloadUri -d $HOME -o "kubectl.exe"
-    
+
     New-Item -Type Directory -Path "${env:ProgramFiles}\Kubernetes" -ErrorAction SilentlyContinue
     Move-Item $downloadedTool "$toolsPath\kubectl.exe" -Force
     AddToPath -folder $toolsPath
@@ -282,7 +289,7 @@ if ($true) {
     $downloadedWget = $env:USERPROFILE + "\wget-1.21.3-win64.zip"
     Remove-Item $downloadedWget -ErrorAction SilentlyContinue
     aria2c.exe $downloadUri -d $HOME -o "wget-1.21.3-win64.zip"
-    
+
     & ${env:ProgramFiles}\7-Zip\7z.exe x $downloadedWget "-o$($wgetPath)" -y
     Write-Host "Adding wget to PATH..." -ForegroundColor Green
     AddToPath -folder $wgetPath
