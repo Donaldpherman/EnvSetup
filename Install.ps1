@@ -225,22 +225,6 @@ if ($true) {
     Remove-Item -Path $downloadedFfmpeg -Force
 }
 
-# Kubernetes CLI
-if ($true) {
-    Write-Host "Downloading Kubernetes CLI..." -ForegroundColor Green
-    Write-Host "------------------------------------" -ForegroundColor Green
-    $toolsPath = "${env:ProgramFiles}\Kubernetes"
-    $downloadUri = "https://dl.k8s.io/release/v1.25.0/bin/windows/amd64/kubectl.exe"
-
-    $downloadedTool = $env:USERPROFILE + "\kubectl.exe"
-    Remove-Item $downloadedTool -ErrorAction SilentlyContinue
-    aria2c.exe $downloadUri -d $HOME -o "kubectl.exe"
-
-    New-Item -Type Directory -Path "${env:ProgramFiles}\Kubernetes" -ErrorAction SilentlyContinue
-    Move-Item $downloadedTool "$toolsPath\kubectl.exe" -Force
-    AddToPath -folder $toolsPath
-}
-
 # wget
 if ($true) {
     Write-Host "Downloading Wget because some app may need it..." -ForegroundColor Green
