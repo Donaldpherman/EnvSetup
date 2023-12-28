@@ -163,9 +163,6 @@ foreach ($app in $Apps) {
     choco install $app -y
 }
 
-# gsudo
-PowerShell -Command "Set-ExecutionPolicy RemoteSigned -scope Process; [Net.ServicePointManager]::SecurityProtocol = 'Tls12'; iwr -useb https://raw.githubusercontent.com/gerardog/gsudo/master/installgsudo.ps1 | iex"
-
 Write-Host "Setting up Git for Windows..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
 git config --global user.email "edi.wang@outlook.com"
