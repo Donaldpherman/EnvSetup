@@ -66,7 +66,6 @@ else {
 Write-Host "Removing UWP Rubbish..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
 $uwpRubbishApps = @(
-    "Microsoft.MSPaint"
     "Microsoft.Microsoft3DViewer"
     "Microsoft.ZuneMusic"
     "Microsoft.ZuneVideo"
@@ -117,7 +116,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName IIS-BasicAuthentication
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-WindowsAuthentication
 # -----------------------------------------------------------------------------
 Write-Host ""
-Write-Host "Enable Windows 10 Developer Mode..." -ForegroundColor Green
+Write-Host "Enable Windows 11 Developer Mode..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" /t REG_DWORD /f /v "AllowDevelopmentWithoutDevLicense" /d "1"
 # -----------------------------------------------------------------------------
@@ -146,34 +145,23 @@ Write-Host "[WARN] Ma de in China: some software like Google Chrome require the 
 $Apps = @(
     "7zip.install",
     "git",
-    "googlechrome",
     "vlc",
     "vscode",
     "sysinternals",
     "linqpad",
     "postman",
-    "nuget.commandline",
     "beyondcompare",
-    "filezilla",
     "microsoft-teams.install",
     "github-desktop",
     "irfanview",
     "nodejs-lts",
     "azure-cli",
     "powershell-core",
-    "chocolateygui",
     "obs-studio")
 
 foreach ($app in $Apps) {
     choco install $app -y
 }
-
-choco install -y visualstudio2022professional --package-parameters "--quiet --nocache --wait --norestart --includeRecommended `
-    --add Microsoft.VisualStudio.Workload.NetWeb `
-    --add Microsoft.VisualStudio.Workload.ManagedDesktop `
-    --add Microsoft.VisualStudio.Workload.ManagedDesktopBuildTools `
-    --add Microsoft.VisualStudio.Workload.NativeDesktop"
-
 
 # gsudo
 PowerShell -Command "Set-ExecutionPolicy RemoteSigned -scope Process; [Net.ServicePointManager]::SecurityProtocol = 'Tls12'; iwr -useb https://raw.githubusercontent.com/gerardog/gsudo/master/installgsudo.ps1 | iex"
@@ -183,7 +171,6 @@ Write-Host "------------------------------------" -ForegroundColor Green
 git config --global user.email "edi.wang@outlook.com"
 git config --global user.name "Edi Wang"
 git config --global core.autocrlf true
-
 
 #aria2
 if ($true)
