@@ -140,7 +140,7 @@ else {
 Write-Host ""
 Write-Host "Installing Applications..." -ForegroundColor Green
 Write-Host "------------------------------------" -ForegroundColor Green
-Write-Host "[WARN] Ma de in China: some software like Google Chrome require the true Internet first" -ForegroundColor Yellow
+Write-Host "[WARN] Ma de in China: please consider using the true Internet first" -ForegroundColor Yellow
 
 $Apps = @(
     "7zip.install",
@@ -187,29 +187,6 @@ if ($true)
     Move-Item $subPath\aria2c.exe $installPath
     AddToPath -folder $installPath
     Remove-Item -Path "$HOME\aria2.zip" -Force
-}
-
-# Chromium
-if ($true) {
-    Write-Host "Installing Chromium as backup browser (For second Teams\AAD usage)..." -ForegroundColor Green
-    Write-Host "------------------------------------" -ForegroundColor Green
-    $chromiumUrl = "https://download-chromium.appspot.com/dl/Win_x64?type=snapshots"
-    $chromiumPath = "${env:ProgramFiles}\Chromium"
-
-    $downloadedChromium = $env:USERPROFILE + "\chrome-win.zip"
-    Remove-Item $downloadedChromium -ErrorAction SilentlyContinue
-    aria2c.exe $chromiumUrl -d $HOME -o "chrome-win.zip"
-
-    & "${env:ProgramFiles}\7-Zip\7z.exe" x $downloadedChromium "-o$($chromiumPath)" -y
-
-    $shortCutPath = $env:USERPROFILE + "\Start Menu\Programs" + "\Chromium.lnk"
-    Remove-Item -Path $shortCutPath -Force -ErrorAction SilentlyContinue
-    $objShell = New-Object -ComObject ("WScript.Shell")
-    $objShortCut = $objShell.CreateShortcut($shortCutPath)
-    $objShortCut.TargetPath = "$chromiumPath\chrome-win\Chrome.exe"
-    $objShortCut.Save()
-
-    Remove-Item -Path $downloadedChromium -Force
 }
 
 # Android CLI
