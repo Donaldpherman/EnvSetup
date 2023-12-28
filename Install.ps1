@@ -293,11 +293,6 @@ Add-MpPreference -ExclusionPath "$env:USERPROFILE\.azuredatastudio"
 Add-MpPreference -ExclusionPath "$env:APPDATA\npm"
 Add-MpPreference -ExclusionPath "$NextcloudPath"
 
-Write-Host "Enabling dark theme..." -ForegroundColor Green
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name AppsUseLightTheme -Value 0
-Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize" -Name SystemUsesLightTheme -Value 0
-Write-Host "Dark theme enabled."
-
 Write-Host "Syncing time..." -ForegroundColor Green
 net stop w32time
 net start w32time
