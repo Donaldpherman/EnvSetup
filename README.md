@@ -1,10 +1,10 @@
-# Windows 10 Developer Machine Setup
+# Windows 11 Developer Machine Setup
 
 This is the script for Edi Wang to setup a new dev box. You can modify the scripts to fit your own requirements.
 
 ## Prerequisites
 
-- A clean install of Windows 10 Pro v21H1 en-us or above.
+- A clean install of Windows 11 Pro v23H2 en-us or above.
 - If you are in China: a stable "Internet" connection.
 
 > This script has not been tested on other version of Windows, please be careful if you are using it on other Windows versions.
