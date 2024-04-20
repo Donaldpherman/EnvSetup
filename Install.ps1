@@ -246,7 +246,6 @@ Write-Host "------------------------------------" -ForegroundColor Green
 [Environment]::SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development", "Machine")
 [Environment]::SetEnvironmentVariable("DOTNET_PRINT_TELEMETRY_MESSAGE", "false", "Machine")
 [Environment]::SetEnvironmentVariable("DOTNET_CLI_TELEMETRY_OPTOUT", "1", "Machine")
-dotnet tool install --global dotnet-ef
 dotnet tool update --global dotnet-ef
 
 Write-Host "Set home path hidden folders and files..." -ForegroundColor Green
